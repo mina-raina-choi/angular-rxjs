@@ -3,6 +3,9 @@ import { Observable } from 'rxjs'
 import { map, take, filter } from 'rxjs/operators';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/distinctUntilKeyChanged';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 
@@ -31,6 +34,9 @@ export class AppComponent {
 
     // using observables
     this.form.valueChanges
+      .debounceTime(500)
+      // .distinctUntilChanged()
+      .distinctUntilKeyChanged('comment') 
       .filter(data => this.form.valid)
       .map(data => {
         data.comment = data.comment.replace(/<(?:.|\n)*?>/gm, '');
