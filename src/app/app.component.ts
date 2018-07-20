@@ -36,7 +36,7 @@ export class AppComponent {
     this.form.valueChanges
       .debounceTime(500)
       // .distinctUntilChanged()
-      .distinctUntilKeyChanged('comment') 
+      .distinctUntilKeyChanged('comment')
       .filter(data => this.form.valid)
       .map(data => {
         data.comment = data.comment.replace(/<(?:.|\n)*?>/gm, '');
